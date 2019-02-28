@@ -36,7 +36,8 @@ if (process.argv.length > 2) {
       });
       break;
     case "styleguide":
-      const styleguide = require("../lib/styleguide")(dir);
+      console.log(config);
+      const styleguide = require("../lib/styleguide")(config);
       if (flags.includes("build")) {
         styleguide.build();
       } else {
