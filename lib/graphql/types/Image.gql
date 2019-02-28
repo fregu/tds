@@ -1,0 +1,13 @@
+input ImageSize {
+  width: Number
+  height: Number
+  crop: Boolean
+}
+
+type Image {
+  id: ID
+  url: String
+  width: Number
+  height: Number
+  cropped: Boolean
+}

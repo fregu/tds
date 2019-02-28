@@ -1,0 +1,12 @@
+type UserContact {
+  email: String
+  phoneNumber: String
+}
+
+type UserReference {
+  id: ID
+  firstName: String
+  surname: String
+  contact: UserContact
+  avatar(size: ImageSize): Image
+}
