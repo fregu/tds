@@ -1,6 +1,0 @@
-type Query {
-  posts(where: PostSelector!): [Post]
-  post(id: ID!): Post
-  users(where: UserSelector): [User]
-  user(id: ID!): User
-}

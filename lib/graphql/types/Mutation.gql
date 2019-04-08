@@ -1,5 +1,0 @@
-type Mutation {
-  createPost(request: PostRequest): ID!
-  updatePost(request: PostRequest): Boolean!
-  deletePost(request: PostRequest): Boolean!
-}

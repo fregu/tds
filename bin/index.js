@@ -45,10 +45,16 @@ if (process.argv.length > 2) {
       }
       break;
     case "server":
+      console.log("serve tds");
       mode = flags.includes("prod") ? "production" : "development";
+      // forEach entry create server and start on separate port?
       createServer({ ...config, mode });
+      break;
+    case "cms":
+      const Strapi = require("strapi-sdk-javascript").default;
+      const strapi = new Strapi("http://localhost:1337");
       break;
   }
 } else {
-  console.log("available commandss...");
+  console.log("available commands...");
 }
