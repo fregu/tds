@@ -17,21 +17,22 @@ if (process.argv.length > 2) {
     .map(arg => arg.replace(/^--?/, ""));
 
   switch (command) {
+    case "init":
+      console.log(
+        "Setting up new Tedious project setup... not yet implemented, sorry :/"
+      );
+      // create tds.config.js file
+      // creating basic project structure
+      // installing dependencies
+      // starting your application
+
+      break;
     case "build":
       mode = flags.includes("dev") ? "development" : "production";
       build("build", {
         mode,
         watch: false,
         styleguide: false,
-        server: false
-      });
-      break;
-    case "start":
-      mode = flags.includes("prod") ? "production" : "development";
-      build("devServer", {
-        mode: mode,
-        historyApiFallback: true,
-        styleguide: true,
         server: false
       });
       break;
@@ -44,15 +45,18 @@ if (process.argv.length > 2) {
         styleguide.serve();
       }
       break;
-    case "server":
-      console.log("serve tds");
+    case "start":
       mode = flags.includes("prod") ? "production" : "development";
       // forEach entry create server and start on separate port?
       createServer({ ...config, mode });
       break;
+    case "test":
+      console.log(
+        "Not yet implemented, would be running your tests, lints and type testers right now otherwise"
+      );
+      break;
     case "cms":
-      const Strapi = require("strapi-sdk-javascript").default;
-      const strapi = new Strapi("http://localhost:1337");
+      console.log("Not yet implemented, see strapi.io for manual setup");
       break;
   }
 } else {
