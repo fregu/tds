@@ -13,12 +13,12 @@ module.exports = function builder(
   const mode = options.mode === "production" ? options.mode : "development";
   const configs = {
     production: {
-      browser: require("../lib/webpack/browser_prod")
-      //styleguide: require('../lib/webpack/styleguide_prod')
+      browser: require("../lib/webpack/browser_prod"),
+      server: require("../lib/webpack/server_prod")
     },
     development: {
       browser: require("../lib/webpack/browser_dev")
-      //styleguide: require('../lib/webpack/styleguide_dev')
+      //styleguide: require('../lib/webpack/server_prod')
     }
   };
 
@@ -111,5 +111,5 @@ module.exports = function builder(
     }
   };
 
-  return methods[method](configs[mode].browser, options);
+  return methods[method](configs[mode].browser);
 };

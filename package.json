@@ -1,7 +1,6 @@
 {
   "name": "@jayway/tds",
   "version": "0.0.1",
-  "main": "lib",
   "license": "MIT",
   "bin": {
     "tds": "./bin/index.js"
@@ -35,6 +34,7 @@
     "brotli-webpack-plugin": "^1.0.0",
     "browser-sync": "^2.26.3",
     "browser-sync-webpack-plugin": "^2.2.2",
+    "classnames-loader": "^2.1.0",
     "clean-webpack-plugin": "^1.0.0",
     "compression-webpack-plugin": "^2.0.0",
     "css-loader": "^2.1.0",
@@ -92,8 +92,6 @@
     "react-styleguidist": "^8.0.6",
     "redux": "^4.0.1",
     "require-from-string": "^2.0.2",
-    "strapi": "^3.0.0-alpha.25.2",
-    "strapi-sdk-javascript": "^0.3.1",
     "stream": "^0.0.2",
     "svg-inline-loader": "^0.8.0",
     "uglifyjs-webpack-plugin": "^2.1.1",
@@ -102,7 +100,8 @@
     "webpack-dev-server": "^3.1.14",
     "webpack-hot-middleware": "^2.24.3",
     "webpack-manifest-plugin": "^2.0.4",
-    "webpack-merge": "^4.2.1"
+    "webpack-merge": "^4.2.1",
+    "workbox-webpack-plugin": "^4.3.0"
   },
   "devDependencies": {
     "@babel/plugin-transform-runtime": "^7.2.0"

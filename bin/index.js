@@ -46,7 +46,10 @@ if (process.argv.length > 2) {
       }
       break;
     case "start":
-      mode = flags.includes("prod") ? "production" : "development";
+      mode =
+        flags.includes("prod") || flags.includes("production")
+          ? "production"
+          : "development";
       // forEach entry create server and start on separate port?
       createServer({ ...config, mode });
       break;

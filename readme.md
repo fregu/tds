@@ -26,21 +26,22 @@ And it is if needed configurable to get the expected bahaviours.
 
 ## tds.config.js
 
-- alias: ({alias: path}) Set up aliases used in your application import statements. This might make importing components or dependencies from remote repositories easier.
-- analyticsKey: (UA2345678) Define your analytics key, which will be used to track page requests, and any event dispatched via (`{type: 'ANALYTICS_EVENT', name: 'name', value: value}`)
-- entry ("src/containers/App/index.js") A full path to alternative entry file for the application. Tedious will look for an src/index.js by default or not finding that create one with routes for each view component.
-- graphql: {
-  remoteSchemas: [{prefix: '', url: '', token: ''}] An array of remote graphQL endpoint which to fetch and serve as our own. By adding a prefix, any root query will be prefixed.
-  }
-- server: ({
-  port: 4444,
-  host: "localhost",
-  publicPath: '/'
-  }) Set up server settings
-- webpack: ({dev: '', prod: ''}) set up path to custom webpack configs, to used on top of default, default will look for `/webpack.dev.js`, `/webpack.prod.js` or `/webpack.config.js`
+- `title`: Set the default document title
+- `alias`: ({alias: path}) Set up aliases used in your application import statements. This might make importing components or dependencies from remote repositories easier.
+- `analytics: {key}`: (UA2345678) Define your analytics key, which will be used to track page requests, and any event dispatched via (`{type: 'ANALYTICS_EVENT', name: 'name', value: value}`)
+- `applicationInsights: {key}`: Sets a key by which to track any exceptions in Application Insights.
+- `external: {css: ['http://...'], js: [{src: 'https://...', defer: true}]}`: Can be used to add additional scripts and stylesheets to the application
+- `entry` ("src/containers/App/index.js") A full path to alternative entry file for the application. Tedious will look for an src/index.js by default or not finding that create one with routes for each view component.
+- `graphql: {remoteSchemas: [{prefix: '', url: '', token: ''}]}`: An array of remote graphQL endpoint which to fetch and serve as our own. By adding a prefix, any root query will be prefixed.
+
+- `server: ({port: 4444, host: "localhost", publicPath: '/'})` Set up server settings
+- `webpack: ({dev: '', prod: ''})`: set up path to custom webpack configs, to used on top of default, default will look for `/webpack.dev.js`, `/webpack.prod.js` or `/webpack.config.js`
 
 ```
 module.exports = {
+  title: 'My awesome project',
+  analytics: {key: 'UA123'},
+  applicationInsights: {key: 'AI123'},
   alias: {
     tds: "@jayway/tds",
     ui: "@jayway/ui/src"
