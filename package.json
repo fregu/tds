@@ -1,6 +1,6 @@
 {
   "name": "@jayway/tds",
-  "version": "0.0.8",
+  "version": "0.0.9",
   "license": "MIT",
   "bin": {
     "tds": "./bin/index.js"
@@ -43,6 +43,7 @@
     "cssnano": "^4.1.8",
     "directory-tree": "^2.2.1",
     "dotenv": "^6.2.0",
+    "encoding": "^0.1.12",
     "eslint": "^5.12.1",
     "eslint-config-prettier": "^3.3.0",
     "eslint-config-standard": "^12.0.0",
