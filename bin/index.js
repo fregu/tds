@@ -4,6 +4,7 @@
 const npx = require("node-npx");
 const path = require("path");
 const build = require("./build");
+const generators = require("../generators");
 const createServer = require("../lib/server");
 const config = require("../lib/config");
 
@@ -21,6 +22,8 @@ if (process.argv.length > 2) {
       console.log(
         "Setting up new Tedious project setup... not yet implemented, sorry :/"
       );
+      console.log(config);
+      generators(config).init();
       // create tds.config.js file
       // creating basic project structure
       // installing dependencies
