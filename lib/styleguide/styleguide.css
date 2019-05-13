@@ -16,6 +16,8 @@
 }
 :root .rsg--root-24 {
   background: #fff;
+  display: inline-block;
+  width: 100%;
   padding: 1em;
   margin: 0 0 1em;
   box-shadow: 0 2px 2px rgba(0, 0, 0, 0.13);
@@ -40,10 +42,15 @@
   padding: 0.2em;
   font-size: 0.875em;
 }
+:root .rsg--pre-33,
 :root .rsg--pre-35 {
   white-space: pre-wrap;
+  display: block;
+  overflow: auto;
 }
-:root .rsg--pre-35 .rsg--code-36 {
+
+:root .rsg--pre-35 .rsg--code-36,
+:root .rsg--pre-33 .rsg--code-36 {
   background: none;
   padding: 0;
 }

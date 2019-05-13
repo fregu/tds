@@ -19,15 +19,13 @@ if (process.argv.length > 2) {
 
   switch (command) {
     case "init":
-      console.log(
-        "Setting up new Tedious project setup... not yet implemented, sorry :/"
-      );
-      console.log(config);
+      console.log("Setting up new Tedious project setup");
       generators(config).init();
-      // create tds.config.js file
-      // creating basic project structure
-      // installing dependencies
-      // starting your application
+
+      break;
+    case "cms":
+      console.log("Setting up new Strapi.io CMS");
+      generators(config).cms();
 
       break;
     case "build":

@@ -3,12 +3,12 @@ const path = require("path");
 const fs = require("fs-extra");
 const dependencies = [
   "@jayway/tds",
-  "@jayway/tds-ui",
   "react",
   "react-redux",
   "react-router-dom"
 ];
 const devDependencies = [
+  "@jayway/tds-ui",
   "prettier",
   "eslint",
   "eslint-config-prettier",
@@ -30,6 +30,37 @@ const devDependencies = [
   "@babel/preset-env",
   "babel-plugin-module-resolver"
 ];
+
+function updatePackageJsonScripts(scripts = {}) {
+  new Promise((resolve, reject) => {
+    const packageJSON = require(path.join(rootPath, "package.json"));
+
+    packageJSON.scripts = {
+      ...Object.keys(packageJSON.scripts || {})
+        .filter(key => Object.keys(scripts).includes(key))
+        .reduce(
+          (scripts, key) => ({
+            ...scripts,
+            [key]: packageJSON.scripts[key]
+          }),
+          {}
+        ),
+      ...scripts
+    };
+
+    fs.writeFile(
+      path.join(rootPath, "package.json"),
+      JSON.stringify(packageJSON, null, 2),
+      err => {
+        if (err) {
+          return reject(err);
+        }
+        console.log("[TDS]:", "package.json has been updated");
+        resolve();
+      }
+    );
+  });
+}
 
 function execPromise(command) {
   return new Promise((resolve, reject) => {
@@ -55,37 +86,11 @@ module.exports = function({ path: rootPath, rootFiles = [] }) {
       promiseTree
         .then(() => {
           console.log("[TDS]:", "Updating package.json scripts");
-          return new Promise((resolve, reject) => {
-            const packageJSON = require(path.join(rootPath, "package.json"));
-            packageJSON.scripts = {
-              ...Object.keys(packageJSON.scripts || {})
-                .filter(key =>
-                  ["start", "build", "styleguide", "server"].includes(key)
-                )
-                .reduce(
-                  (scripts, key) => ({
-                    ...scripts,
-                    [key]: packageJSON.scripts[key]
-                  }),
-                  {}
-                ),
-              start: "tds start",
-              build: "tds build",
-              styleguide: "tds styleguide",
-              server: "tds start --prod"
-            };
-
-            fs.writeFile(
-              path.join(rootPath, "package.json"),
-              JSON.stringify(packageJSON, null, 2),
-              err => {
-                if (err) {
-                  return reject(err);
-                }
-                console.log("[TDS]:", "package.json has been updated");
-                resolve();
-              }
-            );
+          return updatePackageJsonScripts({
+            start: "tds start",
+            build: "tds build",
+            styleguide: "tds styleguide",
+            server: "tds start --prod"
           });
         })
         .then(() => {
@@ -109,6 +114,23 @@ module.exports = function({ path: rootPath, rootFiles = [] }) {
         })
         .catch(error => {
           console.error("[TDS]:", error);
+        });
+    },
+    cms() {
+      new Promise(resolve => resolve())
+        .then(() => {
+          console.log("[TDS]: Installing strapi@alpha");
+          execPromise("yarn add global strapi@alpha");
+        })
+        .then(() => {
+          console.log("[TDS]: Updating package.json scripts");
+          return updatePackageJsonScripts({
+            cms: "cd cms && strapi start"
+          });
+        })
+        .then(() => {
+          console.log("[TDS]: Starting up Stapi cms");
+          return execPromise("strapi new cms --quickstart");
         });
     }
   };
