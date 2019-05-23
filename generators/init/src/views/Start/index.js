@@ -1,5 +1,5 @@
 import React from 'react'
-import Link from 'components/Link'
+import Link from 'ui/components/Link'
 import Counter from 'components/Counter'
 import Hello from 'containers/Hello'
 import Title from 'ui/components/Title'
