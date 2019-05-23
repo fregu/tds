@@ -1,13 +1,13 @@
 {
   "name": "@jayway/tds",
-  "version": "0.0.17",
+  "version": "0.0.20",
   "license": "MIT",
   "bin": {
     "tds": "./bin/index.js"
   },
   "dependencies": {
     "@babel/cli": "^7.2.3",
-    "@babel/core": "^7.2.2",
+    "@babel/core": "^7.4.4",
     "@babel/plugin-proposal-class-properties": "^7.2.3",
     "@babel/plugin-proposal-object-rest-spread": "^7.2.0",
     "@babel/plugin-proposal-optional-chaining": "^7.2.0",
@@ -40,6 +40,7 @@
     "classnames-loader": "^2.1.0",
     "clean-webpack-plugin": "^1.0.0",
     "compression-webpack-plugin": "^2.0.0",
+    "core-js": "3",
     "css-loader": "^2.1.0",
     "cssnano": "^4.1.8",
     "directory-tree": "^2.2.1",
@@ -72,6 +73,7 @@
     "koa-compress": "^3.0.0",
     "koa-helmet": "^4.0.0",
     "koa-mount": "^4.0.0",
+    "koa-router": "^7.4.0",
     "koa-static": "^5.0.0",
     "koa-webpack-dev-middleware": "^2.0.2",
     "koa-webpack-hot-middleware": "^1.0.3",
@@ -92,9 +94,9 @@
     "postcss-loader": "^3.0.0",
     "postcss-preset-env": "^6.5.0",
     "prettier": "^1.16.1",
-    "react": "^16.8.4",
+    "react": "^16.8.6",
     "react-apollo": "^2.4.0",
-    "react-dom": "^16.7.0",
+    "react-dom": "^16.8.6",
     "react-helmet": "^5.2.0",
     "react-hot-loader": "^4.6.3",
     "react-redux": "^6.0.0",

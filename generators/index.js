@@ -4,6 +4,7 @@ const fs = require("fs-extra");
 const dependencies = [
   "@jayway/tds",
   "react",
+  "react-dom",
   "react-redux",
   "react-router-dom"
 ];
@@ -31,7 +32,7 @@ const devDependencies = [
   "babel-plugin-module-resolver"
 ];
 
-function updatePackageJsonScripts(scripts = {}) {
+function updatePackageJsonScripts(scripts = {}, rootPath) {
   new Promise((resolve, reject) => {
     const packageJSON = require(path.join(rootPath, "package.json"));
 
@@ -86,12 +87,16 @@ module.exports = function({ path: rootPath, rootFiles = [] }) {
       promiseTree
         .then(() => {
           console.log("[TDS]:", "Updating package.json scripts");
-          return updatePackageJsonScripts({
-            start: "tds start",
-            build: "tds build",
-            styleguide: "tds styleguide",
-            server: "tds start --prod"
-          });
+          return updatePackageJsonScripts(
+            {
+              start: "tds start",
+              build: "tds build",
+              styleguide: "tds styleguide",
+              server: "tds start --prod",
+              lint: "eslint ."
+            },
+            rootPath
+          );
         })
         .then(() => {
           console.log("[TDS]:", "Adding boilerplate files");

@@ -58,9 +58,6 @@ if (process.argv.length > 2) {
         "Not yet implemented, would be running your tests, lints and type testers right now otherwise"
       );
       break;
-    case "cms":
-      console.log("Not yet implemented, see strapi.io for manual setup");
-      break;
   }
 } else {
   console.log("available commands...");

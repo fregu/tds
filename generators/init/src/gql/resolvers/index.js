@@ -1,6 +1,6 @@
 const resolvers = {
   Query: {
-    hello: () => 'Hello yourself'
+    hello: (root, { name }, ctx) => `Hello ${name || 'yourself'}`
   }
 }
 module.exports = resolvers

@@ -1,9 +1,12 @@
 import React from 'react'
-import Link from 'components/Link'
+import Link from 'ui/components/Link'
+import View from 'ui/components/View'
+
 export default function AboutView() {
   return (
-    <div>
-      About page <Link to="/">Start</Link>
-    </div>
+    <View title="About Tedious">
+      <p>Tedious is awesome</p>
+      <Link to="/">Back to start</Link>
+    </View>
   )
 }
