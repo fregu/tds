@@ -3,10 +3,13 @@
 // TODO: Implement process management using PM2 API (http://pm2.keymetrics.io/docs/usage/pm2-api/)  //
 const npx = require('node-npx')
 const path = require('path')
-const build = require('./build')
+const builder = require('../lib/build')
 const generators = require('../generators')
+// const runner = require('../lib/server/runner')
 const createServer = require('../lib/server')
+const runner = require('../lib/server/runner')
 const config = require('../lib/config')
+const fs = require('fs')
 const parser = require('../lib/parser/parse')
 
 if (process.argv.length > 2) {
@@ -31,12 +34,9 @@ if (process.argv.length > 2) {
       break
     case 'build':
       mode = flags.includes('dev') ? 'development' : 'production'
-      build('build', {
-        mode,
-        watch: false,
-        styleguide: false,
-        server: false
-      })
+      builder()
+        .server()
+        .run(() => console.log('build done'))
       break
     case 'styleguide':
       const styleguide = require('../lib/styleguide')(config)
@@ -51,8 +51,14 @@ if (process.argv.length > 2) {
         flags.includes('prod') || flags.includes('production')
           ? 'production'
           : 'development'
-      // forEach entry create server and start on separate port?
       createServer({ ...config, mode })
+      break
+    case 'runner':
+      mode =
+        flags.includes('prod') || flags.includes('production')
+          ? 'production'
+          : 'development'
+      runner({ ...config, mode })
       break
     case 'test':
       console.log(
@@ -60,7 +66,6 @@ if (process.argv.length > 2) {
       )
       break
     case 'parse':
-      const fs = require('fs')
       fs.writeFileSync(
         `${dir}/fullConfig.json`,
         JSON.stringify(parser(dir), null, 2)

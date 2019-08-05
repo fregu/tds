@@ -11,9 +11,10 @@ module.exports = function builder(
   options = { mode: "development" }
 ) {
   const mode = options.mode === "production" ? options.mode : "development";
+
   const configs = {
     production: {
-      browser: require("../lib/webpack/browser_prod"),
+      //browser: require("../lib/webpack/browser_prod"),
       server: require("../lib/webpack/server_prod")
     },
     development: {
@@ -26,47 +27,52 @@ module.exports = function builder(
     config(config) {
       return config;
     },
-    build(config, fileSystem) {
-      const compiler = webpack(config);
+    build(configs=[], fileSystem) {
 
-      if (fileSystem) {
-        compiler.outputFileSystem = fileSystem;
-      }
-      compiler.run((err, stats) => {
-        if (err) {
-          console.error(err.stack || err);
-          if (err.details) {
-            console.error(err.details);
+      configs.map(config => {
+        const compiler = webpack(config);
+
+        if (fileSystem) {
+          compiler.outputFileSystem = fileSystem;
+        }
+        compiler.run((err, stats) => {
+          if (err) {
+            console.error(err.stack || err);
+            if (err.details) {
+              console.error(err.details);
+            }
+            return;
           }
-          return;
-        }
 
-        const info = stats.toJson();
+          const info = stats.toJson();
 
-        if (stats.hasErrors()) {
-          console.error(info.errors);
-        } else if (stats.hasWarnings()) {
-          console.warn(info.warnings);
-        } else {
-          console.log("Build done");
-        }
-      });
+          if (stats.hasErrors()) {
+            console.error(info.errors);
+          } else if (stats.hasWarnings()) {
+            console.warn(info.warnings);
+          } else {
+            console.log("Build done");
+          }
+        });
+      })
     },
-    watch(config) {
-      const compiler = webpack(config);
+    watch(configs=[]) {
+      configs.map(config => {
+        const compiler = webpack(config);
 
-      if (fileSystem) {
-        compiler.outputFileSystem = fileSystem;
-      }
-      compiler.watch(
-        {
-          aggregateTimeout: 300,
-          poll: 1000
-        },
-        (err, stats) => {
-          // ...
+        if (fileSystem) {
+          compiler.outputFileSystem = fileSystem;
         }
-      );
+        compiler.watch(
+          {
+            aggregateTimeout: 300,
+            poll: 1000
+          },
+          (err, stats) => {
+            // ...
+          }
+        );
+      })
     },
     devServer(webpackConfig, options) {
       // config.entry.main = [
@@ -111,5 +117,5 @@ module.exports = function builder(
     }
   };
 
-  return methods[method](configs[mode].browser);
+  return methods[method](Object.keys(configs[mode]).map(key => configs[mode][key]));
 };
