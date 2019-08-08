@@ -1,9 +1,7 @@
 #!/usr/bin/env node
 
-// TODO: Implement process management using PM2 API (http://pm2.keymetrics.io/docs/usage/pm2-api/)  //
 const builder = require('../lib/build')
 const generators = require('../generators')
-const createServer = require('../lib/server')
 const runner = require('../lib/server/runner')
 const config = require('../lib/config')
 const fs = require('fs')
