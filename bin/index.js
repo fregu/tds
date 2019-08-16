@@ -31,7 +31,7 @@ if (process.argv.length > 2) {
     case 'build':
       builder()
         .server()
-        .run(() => console.log('build done'))
+        .run((stats, assets) => console.log('build done', assets))
       break
     case 'styleguide':
       const styleguide = require('../lib/styleguide')(config)
@@ -44,15 +44,13 @@ if (process.argv.length > 2) {
     case 'start':
       runner({ ...config, mode })
       break
-    case 'runner':
-      runner({ ...config, mode })
-      break
     case 'test':
       console.log(
         'Not yet implemented, would be running your tests, lints and type testers right now otherwise'
       )
       break
     case 'parse':
+      fs.writeFileSync(`${dir}/oldConfig.json`, JSON.stringify(config, null, 2))
       fs.writeFileSync(
         `${dir}/fullConfig.json`,
         JSON.stringify(parser(dir), null, 2)
