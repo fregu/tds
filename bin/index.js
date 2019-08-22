@@ -29,7 +29,7 @@ if (process.argv.length > 2) {
       break
 
     case 'build':
-      builder()
+      builder({ ...config, mode })
         .server()
         .run((stats, assets) => console.log('build done', assets))
       break
