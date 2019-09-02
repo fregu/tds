@@ -3,7 +3,7 @@
 const builder = require('../lib/build')
 const generators = require('../generators')
 const runner = require('../lib/server/runner')
-const config = require('../lib/config')
+const config = require('../lib/config')()
 const fs = require('fs')
 const parser = require('../lib/parser/parse')
 
@@ -17,7 +17,9 @@ if (process.argv.length > 2) {
     .map(arg => arg.replace(/^--?/, ''))
 
   const mode =
-    flags.includes('prod') || flags.includes('production')
+    flags.includes('prod') ||
+    flags.includes('production') ||
+    process.env.NODE_ENV === 'production'
       ? 'production'
       : 'development'
 
@@ -34,12 +36,13 @@ if (process.argv.length > 2) {
         .run((stats, assets) => console.log('build done', assets))
       break
     case 'styleguide':
-      const styleguide = require('../lib/styleguide')(config)
-      if (flags.includes('build')) {
-        styleguide.build()
-      } else {
-        styleguide.serve()
-      }
+      // const styleguide = require('../lib/styleguide')(config)
+      // if (flags.includes('build')) {
+      //   styleguide.build()
+      // } else {
+      //   styleguide.serve()
+      // }
+      runner({ ...config, mode }, 'styleguide')
       break
     case 'start':
       runner({ ...config, mode })
