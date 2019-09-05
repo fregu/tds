@@ -6,6 +6,7 @@ const runner = require('../lib/server/runner')
 const config = require('../lib/config')()
 const fs = require('fs')
 const parser = require('../lib/parser/parse')
+const packageJSON = require('../package.json')
 
 if (process.argv.length > 2) {
   const dir = process.cwd()
@@ -23,11 +24,22 @@ if (process.argv.length > 2) {
       ? 'production'
       : 'development'
 
+  if (flags.includes('v')) {
+    console.log('Current Tediuos version is: ', packageJSON.version)
+    return
+  }
+
   switch (command) {
     case 'init':
       console.log('Setting up new Tedious project setup')
       generators(config).init()
 
+      break
+
+    case 'update':
+      const exec = require('child_process').exec
+      console.log('Updating @jayway/tds')
+      exec('yarn install @jayway/tds', console.log)
       break
 
     case 'build':
