@@ -1,6 +1,6 @@
 {
   "name": "@jayway/tds",
-  "version": "0.0.31",
+  "version": "0.0.32",
   "license": "MIT",
   "bin": {
     "tds": "./bin/index.js"
@@ -143,6 +143,7 @@
     "webpack-hot-middleware": "^2.24.3",
     "webpack-manifest-plugin": "^2.0.4",
     "webpack-merge": "^4.2.1",
+    "webpack-pwa-manifest": "^4.0.0",
     "workbox-webpack-plugin": "^4.3.0"
   }
 }
