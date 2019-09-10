@@ -28,6 +28,10 @@ if (process.argv.length > 2) {
     console.log('Current Tediuos version is: ', packageJSON.version)
     return
   }
+  if (flags.includes('verbose')) {
+    config.verbose = true
+    return
+  }
 
   switch (command) {
     case 'init':
