@@ -3,13 +3,13 @@
 const builder = require('../lib/build')
 const generators = require('../generators')
 const runner = require('../lib/server/runner')
-const config = require('../lib/config')()
 const fs = require('fs')
 const parser = require('../lib/parser/parse')
 const packageJSON = require('../package.json')
 
 if (process.argv.length > 2) {
   const dir = process.cwd()
+  const config = parser(dir, true)
   const command = process.argv[2]
   // const specifier =
   //   process.argv[3] && !process.argv[3].match(/^-/) && process.argv[3]
@@ -29,14 +29,14 @@ if (process.argv.length > 2) {
     return
   }
   if (flags.includes('verbose')) {
-    config.verbose = true
+    // config.verbose = true
     return
   }
 
   switch (command) {
     case 'init':
       console.log('Setting up new Tedious project setup')
-      generators(config).init()
+      generators({ path: dir }).init()
 
       break
 
@@ -58,6 +58,7 @@ if (process.argv.length > 2) {
       // } else {
       //   styleguide.serve()
       // }
+
       runner({ ...config, mode }, 'styleguide')
       break
     case 'start':
