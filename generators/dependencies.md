@@ -7,7 +7,7 @@ $ yarn add eslint eslint-config-prettier eslint-config-standard eslint-plugin-ba
   "scripts": {
     "start": "tds start",
     "build": "tds build",
-    "server": "node dist/server.js",
+    "server": "node dist/run.js",
     "postinstall": "yarn build"
   }
 }
