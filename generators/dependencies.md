@@ -1,5 +1,5 @@
 ```bash
-$ yarn add eslint eslint-config-prettier eslint-config-standard eslint-plugin-babel eslint-plugin-flowtype eslint-plugin-import eslint-plugin-jsx-a11y eslint-plugin-prettier eslint-plugin-promise eslint-plugin-react @babel/core babel-plugin-module-resolver @babel/plugin-proposal-class-properties @babel/plugin-proposal-optional-chaining @babel/preset-react @babel/preset-flow @babel/preset-env react redux react-redux react-dom react-router
+$ yarn add eslint eslint-config-prettier eslint-config-standard eslint-plugin-babel eslint-plugin-flowtype eslint-plugin-import eslint-plugin-jsx-a11y eslint-plugin-prettier eslint-plugin-promise eslint-plugin-react @babel/core babel-plugin-module-resolver @babel/plugin-proposal-class-properties @babel/plugin-proposal-optional-chaining @babel/preset-react @babel/preset-flow @babel/preset-env babel-eslint react redux react-redux react-dom react-router graphql graphql/utilities
 ```
 
 ```json
@@ -7,7 +7,7 @@ $ yarn add eslint eslint-config-prettier eslint-config-standard eslint-plugin-ba
   "scripts": {
     "start": "tds start",
     "build": "tds build",
-    "server": "tds start --production",
+    "server": "node dist/run.js",
     "postinstall": "yarn build"
   }
 }

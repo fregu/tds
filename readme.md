@@ -26,22 +26,34 @@ And it is if needed configurable to get the expected bahaviours.
 
 ## tds.config.js
 
-- `title`: Set the default document title
-- `alias`: ({alias: path}) Set up aliases used in your application import statements. This might make importing components or dependencies from remote repositories easier.
-- `analytics: {key}`: (UA2345678) Define your analytics key, which will be used to track page requests, and any event dispatched via (`{type: 'ANALYTICS_EVENT', name: 'name', value: value}`)
-- `applicationInsights: {key}`: Sets a key by which to track any exceptions in Application Insights.
+- `title`: Set the default document title and PWA app title
+- `version`: define a version of your app, which will be appended to any PWA-cache
+- `shortTitle`: Shorter title to use instead of title when installed on homescreen
+- `description`: Set meta description of application
+- `lang`: Define the language of your app
+- `icon`: Set relative path to a large icon-file that will be used in generating favicons, touch icons and PWA-icons
+- `themeColor: '#3f5b57'`: Define a theme color for app, used in app capable PWA apps
+- `backgroundColor: '#f2f6f3'`: Define a backgroundcolor used in splash-screen and on favicons (is transparent background)
+- `cacheStrategy: 'NetworkFirst'`:(`NetworkFirst`,`NetworkOnly`,`CacheFirst`) Tell Tedious how to handle GET-requests and cache responses and assets, allowing to take you app to a truly offline PWA experience
+- `alias`: ({alias: path}) Set up aliases used in your application import statements. This might make importing components or dependencies from remote repositories easier. Per default Tedious is using your `src` directory as primary root when importing components. And when using @jayway/tds-ui `ui` is the primary root to src directory in tds-ui.
+- keys { : This is where we define keys to external tracking aplications such as analytics, tag manager and application insights
+  - `analytics: "G-123456789"`: Define your analytics key, which will automatically be used to track page requests, and any event dispatched via (`{type: 'ANALYTICS_EVENT', name: 'name', value: value}`). When using tds-ui components such as `<Link />`, `<Button />`, `<Form />` and `<View />`, they provide easy event tracking by properties such as `trackClick={'eventName'} trackChange={'eventName'} trackSubmit={'eventName'} trackPage={'eventName'}`
+  - `applicationInsights: {key}`: Sets a key by which to track any thrown error exceptions from both server and client to Application Insights.
+    }
 - `external: {css: ['http://...'], js: [{src: 'https://...', defer: true}]}`: Can be used to add additional scripts and stylesheets to the application
-- `entry` ("src/containers/App/index.js") A full path to alternative entry file for the application. Tedious will look for an src/index.js by default or not finding that create one with routes for each view component.
+- `entry` ("src/containers/App/index.js") A full path to alternative entry file for the application. Tedious will automatically look for an `src/index.js` or `src/App.js` by default, or not finding that create an automatic entry with routes for each view component.
+- `auth {password: 'secretpass'}`: Prevent anyone accessing you app without giving the secret password
 - `graphql: {remoteSchemas: [{prefix: '', url: '', token: ''}]}`: An array of remote graphQL endpoint which to fetch and serve as our own. By adding a prefix, any root query will be prefixed.
-
 - `server: ({port: 4444, host: "localhost", publicPath: '/'})` Set up server settings
 - `webpack: ({dev: '', prod: ''})`: set up path to custom webpack configs, to used on top of default, default will look for `/webpack.dev.js`, `/webpack.prod.js` or `/webpack.config.js`
 
 ```
 module.exports = {
   title: 'My awesome project',
-  analytics: {key: 'UA123'},
-  applicationInsights: {key: 'AI123'},
+  keys: {
+    analytics: 'G-123',
+    applicationInsights: 'AI123'
+  },
   alias: {
     tds: "@jayway/tds",
     ui: "@jayway/ui/src"
@@ -52,9 +64,9 @@ module.exports = {
       {
         prefix: 'cms',
         url:
-          'https://api-euwest.graphcms.com/v1/cjng2h1rr1aha01ijg503fnjj/master',
+          'https://api-euwest.graphcms.com/1234',
         token:
-          'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ2ZXJzaW9uIjoxLCJ0b2tlbklkIjoiYzViMmY1OGMtODg4MC00N2NmLWI3NTgtMGJmNjIyMzdlMDA5In0.ZO9zHkbxQQbT8s56hAuFhHOyIriTVc864_yWWYrWib8'
+          'eyJ0eXAiOiJKV1...'
       }]
   },
   server: {
@@ -64,3 +76,19 @@ module.exports = {
   }
 }
 ```
+
+## Parsing you application
+
+Tedious will parse your application directory, automatically finding directories and files to figure out how to start up your application.
+
+- `webpack.config.js, webpack.dev.js, webpack.prod.js`: If any webpack config is found in your root, thees will be exteded to the build
+- `.babelrc, babelrc.js`: Extend the babel plugins and preset from your local babel configs.
+- `graphql.types`: Automatically build a graphQl schema based on your .gql files in `src/gql/types`, unless you provide a schema
+- `graphql.resolvers`: Automatically build attacj resolvers based on any .js files in `src/gql/resolvers` directory, unless you provide a schema
+- `graphql.schema`: If you have a schema file, this will be used instead of generating one based on types and resolver `src/gql/schema.js`
+
+- `redux.middlewares`: Find any js files in the directory `src/store/middlewares` and use them when generating a store, unless a store is provided
+- `redux.reducers`: Find any js files in the directory `src/store/reduces` and use them to create a store, unless a store is provided
+- `redux.store`: If the file `src/store/index.js` or `src/store/store.js` is provided, use this instead of generating a new store.
+
+- `server.middlewares`: Import any js file in `src/server/middlewares` and add as a koa server middleaware
