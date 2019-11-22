@@ -50,6 +50,9 @@ if (process.argv.length > 2) {
       builder({ ...config, mode })
         .server()
         .run((stats, assets) => console.log('build done', assets))
+      builder({ ...config, mode })
+        .browser()
+        .run((stats, assets) => console.log('build done', assets))
       break
     case 'styleguide':
       // const styleguide = require('../lib/styleguide')(config)
