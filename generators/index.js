@@ -4,7 +4,7 @@ const fs = require('fs-extra')
 const dependencies = [
   '@jayway/tds',
   '@jayway/tds-ui',
-  '@jayway/tds-styleguide',
+  // '@jayway/tds-styleguide',
   'react',
   'react-dom',
   'react-redux',
