@@ -1,15 +1,17 @@
 {
   "name": "@jayway/tds",
-  "version": "0.0.50",
+  "version": "0.0.54",
   "license": "MIT",
   "bin": {
     "tds": "./bin/index.js"
   },
   "resolutions": {
-    "graphql": "^14.4.2"
+    "graphql": "^14.5.8"
   },
   "dependencies": {
-    "@apollo/react-ssr": "^3.0.1",
+    "@apollo/client": "^3.0.0-beta.19",
+    "@apollo/react-components": "^3.1.3",
+    "@apollo/react-ssr": "^3.1.3",
     "@babel/cli": "^7.2.3",
     "@babel/core": "^7.4.4",
     "@babel/plugin-proposal-class-properties": "^7.2.3",
@@ -30,7 +32,7 @@
     "@wry/equality": "^0.1.9",
     "apollo-boost": "^0.4.4",
     "apollo-cache-inmemory": "^1.6.0",
-    "apollo-client": "^2.6.4",
+    "apollo-client": "^2.6.8",
     "apollo-link": "^1.2.11",
     "apollo-link-context": "^1.0.14",
     "apollo-link-error": "^1.1.10",
@@ -82,7 +84,7 @@
     "file-loader": "^5.0.2",
     "fs": "^0.0.1-security",
     "fs-extra": "^8.1.0",
-    "graphql": "^14.4.2",
+    "graphql": "^14.5.8",
     "graphql-s2s": "^0.20.2",
     "graphql-tag": "^2.10.1",
     "graphql-tools": "^4.0.5",
@@ -126,15 +128,15 @@
     "postcss-preset-env": "^6.5.0",
     "prettier": "^1.16.1",
     "raw-loader": "^4.0.0",
-    "react": "^16.8.6",
+    "react": "^16.12.0",
     "react-apollo": "^3.1.3",
     "react-docgen": "^4.1.1",
-    "react-dom": "^16.8.6",
+    "react-dom": "^16.12.0",
     "react-ga": "^2.6.0",
     "react-helmet": "^5.2.0",
     "react-hot-loader": "^4.6.3",
     "react-redux": "^7.1.3",
-    "react-router": "^5.0.0",
+    "react-router": "^5.1.2",
     "react-router-dom": "^5.1.2",
     "react-styleguidist": "^10.3.0",
     "redux": "^4.0.1",

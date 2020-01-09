@@ -47,12 +47,14 @@ if (process.argv.length > 2) {
       break
 
     case 'build':
-      builder({ ...config, mode })
-        .server()
-        .run((stats, assets) => console.log('build done', assets))
-      builder({ ...config, mode })
-        .browser()
-        .run((stats, assets) => console.log('build done', assets))
+      const build = builder({ ...config, mode })
+      build.server().run((stats, assets) => {
+        console.log('server build done', assets)
+        build
+          .browser()
+          .run((stats, assets) => console.log('browser build done', assets))
+      })
+
       break
     case 'styleguide':
       // const styleguide = require('../lib/styleguide')(config)
