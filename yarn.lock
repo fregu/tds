@@ -11725,10 +11725,10 @@ node-releases@^1.1.29, node-releases@^1.1.42:
   dependencies:
     semver "^6.3.0"
 
-node_modules-path@^2.0.4:
-  version "2.0.4"
-  resolved "https://registry.yarnpkg.com/node_modules-path/-/node_modules-path-2.0.4.tgz#00d34af7c1828868b2d4cd9cd3038ff0ec10003c"
-  integrity sha512-aqwgTIq6kI0d1aXEeX3nOP1AMN4PwkNOvg9jrzcMcM0RMMXO17/QiPSkwHqokoHPKinNFp3tOyJ6nkR039QUsQ==
+node_modules-path@^2.0.5:
+  version "2.0.5"
+  resolved "https://registry.yarnpkg.com/node_modules-path/-/node_modules-path-2.0.5.tgz#477b1e95d2a365976db3a799ba7709fb476edf58"
+  integrity sha512-l5wyQWP56Gct/qpBV9lAJA9Al+WhwF0PTtfzpla8cd0wa735e03fhpV0wyN1MZHFm/yF9+kxPdBXxMVL8S73iQ==
 
 noop-logger@^0.1.1:
   version "0.1.1"
