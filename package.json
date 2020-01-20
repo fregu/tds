@@ -1,6 +1,6 @@
 {
   "name": "@jayway/tds",
-  "version": "0.0.57",
+  "version": "0.0.59",
   "license": "MIT",
   "bin": {
     "tds": "./bin/index.js"
@@ -147,7 +147,7 @@
     "shell-exec": "^1.0.2",
     "stream": "^0.0.2",
     "svg-inline-loader": "^0.8.0",
-    "uglifyjs-webpack-plugin": "^2.1.1",
+    "terser-webpack-plugin": "^2.3.2",
     "url": "^0.11.0",
     "utf-8-validate": "^5.0.2",
     "webpack": "^4.34.0",
