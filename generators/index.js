@@ -96,7 +96,8 @@ module.exports = function({ path: rootPath }) {
             {
               start: 'tds start',
               build: 'tds build',
-              styleguide: 'tds styleguide',
+              // styleguide: 'tds styleguide',
+              eject: 'tds eject',
               serve: 'node dist/run.js',
               lint: 'eslint .'
             },

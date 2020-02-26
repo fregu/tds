@@ -1,11 +1,12 @@
 #!/usr/bin/env node
 
 const builder = require('../lib/build')
-const generators = require('../generators')
 const runner = require('../lib/server/runner')
-const fs = require('fs')
+const fs = require('fs-extra')
+const path = require('path')
 const parser = require('../lib/parser/parse')
 const packageJSON = require('../package.json')
+const exec = require('child_process').exec
 
 if (process.argv.length > 2) {
   const dir = process.cwd()
@@ -34,19 +35,19 @@ if (process.argv.length > 2) {
   }
 
   switch (command) {
-    case 'init':
+    case 'init': {
+      const generators = require('../generators')
       console.log('Setting up new Tedious project setup')
       generators({ path: dir }).init()
 
       break
-
+    }
     case 'update':
-      const exec = require('child_process').exec
       console.log('Updating @jayway/tds')
       exec('yarn install @jayway/tds', console.log)
       break
 
-    case 'build':
+    case 'build': {
       const build = builder({ ...config, mode })
       build.server().run((stats, assets) => {
         console.log('server build done', assets)
@@ -56,16 +57,19 @@ if (process.argv.length > 2) {
       })
 
       break
-    case 'styleguide':
+    }
+    case 'styleguide': {
       // const styleguide = require('../lib/styleguide')(config)
+      //
       // if (flags.includes('build')) {
       //   styleguide.build()
       // } else {
       //   styleguide.serve()
       // }
 
-      runner({ ...config, mode }, 'styleguide')
+      runner({ ...parser(dir), mode }, 'styleguide')
       break
+    }
     case 'start':
       runner({ ...config, mode })
       break
@@ -74,6 +78,69 @@ if (process.argv.length > 2) {
         'Not yet implemented, would be running your tests, lints and type testers right now otherwise'
       )
       break
+
+    case 'eject': {
+      const localPackageJSON = require(path.resolve(dir, 'package.json'))
+      try {
+        fs.copySync(
+          path.resolve(__dirname, '..', 'lib'),
+          path.resolve(dir, 'lib')
+        )
+        console.log('[TDS]: Copied directory lib')
+      } catch (err) {
+        console.error(err)
+      }
+
+      try {
+        fs.copySync(
+          path.resolve(__dirname, '..', 'bin'),
+          path.resolve(dir, 'bin')
+        )
+        console.log('[TDS]: Copied directory bin')
+      } catch (err) {
+        console.error(err)
+      }
+
+      if (localPackageJSON) {
+        console.log('[TDS]: Updating npm scripts')
+        fs.writeJsonSync(path.resolve(dir, 'package.json'), {
+          ...localPackageJSON,
+          scripts: Object.keys(localPackageJSON.scripts || {}).reduce(
+            (scripts, cmd) => ({
+              ...scripts,
+              ...(!['eject'].includes(cmd)
+                ? {
+                    [cmd]: localPackageJSON.scripts[cmd].replace(
+                      /^tds /,
+                      'node ./bin/index.js '
+                    )
+                  }
+                : {})
+            }),
+            {}
+          )
+        })
+
+        console.log('[TDS]: Installing dependencies')
+        exec(
+          `yarn add ${Object.keys(packageJSON.dependencies)
+            .map(mod => `${mod}@${packageJSON.dependencies[mod]}`)
+            .join(' ')}`,
+          () => {
+            console.log('[TDS]: Removing @jayway/tds dependency')
+            exec(`yarn remove @jayway/tds`, () => {
+              // updatePackageJSONScripts({
+              //   start: 'node ./bin/index.js start',
+              //   build: 'node ./bin/index.js build'
+              // })
+              console.log('[TDS]: Complete')
+            })
+          }
+        )
+      }
+
+      break
+    }
     case 'parse':
       fs.writeFileSync(`${dir}/oldConfig.json`, JSON.stringify(config, null, 2))
       fs.writeFileSync(
