@@ -29,7 +29,9 @@ const devDependencies = [
   '@babel/plugin-proposal-optional-chaining',
   '@babel/preset-react',
   '@babel/preset-flow',
+  '@babel/preset-typescript',
   '@babel/preset-env',
+  'babel-loader',
   'babel-eslint',
   'babel-plugin-module-resolver'
 ]
