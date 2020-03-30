@@ -1,6 +1,6 @@
 {
   "name": "@jayway/tds",
-  "version": "0.0.73",
+  "version": "0.0.74",
   "license": "MIT",
   "bin": {
     "tds": "./bin/index.js"
@@ -28,6 +28,8 @@
     "@babel/preset-typescript": "^7.8.3",
     "@babel/register": "^7.8.3",
     "@babel/runtime": "^7.8.4",
+    "@bugsnag/js": "^6.5.2",
+    "@bugsnag/plugin-koa": "^6.5.0",
     "@gfx/zopfli": "^1.0.10",
     "@jayway/tds-ui": "^0.0.39",
     "@mdx-js/loader": "^1.5.5",
