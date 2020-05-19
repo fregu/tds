@@ -1,6 +1,6 @@
 {
   "name": "@jayway/tds",
-  "version": "0.0.74",
+  "version": "0.0.80",
   "license": "MIT",
   "bin": {
     "tds": "./bin/index.js"
@@ -61,6 +61,7 @@
     "babel-polyfill": "^6.26.0",
     "brotli-webpack-plugin": "^1.0.0",
     "bufferutil": "^4.0.1",
+    "chalk": "^4.0.0",
     "classnames-loader": "^2.1.0",
     "clean-webpack-plugin": "^3.0.0",
     "compression-webpack-plugin": "^3.1.0",
@@ -118,7 +119,9 @@
     "optimize-css-assets-webpack-plugin": "^5.0.1",
     "path": "^0.12.7",
     "pnp-webpack-plugin": "^1.6.0",
+    "postcss-color-function": "^4.1.0",
     "postcss-color-mod-function": "^3.0.3",
+    "postcss-for": "^2.1.1",
     "postcss-import": "^12.0.1",
     "postcss-loader": "^3.0.0",
     "postcss-mixins": "^6.2.2",

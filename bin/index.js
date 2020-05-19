@@ -38,7 +38,9 @@ if (process.argv.length > 2) {
     case 'init': {
       const generators = require('../generators')
       console.log('Setting up new Tedious project setup')
-      generators({ path: dir }).init()
+      const directory = process.argv[3] || '.'
+      const rootPath = path.resolve(dir, directory)
+      fs.ensureDir(rootPath).then(() => generators({ path: rootPath }).init())
 
       break
     }
@@ -49,25 +51,25 @@ if (process.argv.length > 2) {
 
     case 'build': {
       const build = builder({ ...config, mode })
-      build.server().run((stats, assets) => {
-        console.log('server build done', assets)
+      build.server().run(stats => {
+        console.log('server build done')
         build
           .browser()
-          .run((stats, assets) => console.log('browser build done', assets))
+          .run((stats, assets) => console.log('browser build done'))
       })
 
       break
     }
     case 'styleguide': {
-      // const styleguide = require('../lib/styleguide')(config)
-      //
-      // if (flags.includes('build')) {
-      //   styleguide.build()
-      // } else {
-      //   styleguide.serve()
-      // }
+      const styleguide = require('../lib/styleguide')(config)
 
-      runner({ ...parser(dir), mode }, 'styleguide')
+      if (flags.includes('build')) {
+        styleguide.build()
+      } else {
+        styleguide.serve()
+      }
+
+      // runner({ ...parser(dir), mode }, 'styleguide')
       break
     }
     case 'start':
