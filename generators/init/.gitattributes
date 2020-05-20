@@ -1,0 +1,13 @@
+* eol=lf
+
+*.pdf binary
+*.PDF binary
+*.png binary
+*.gif binary
+*.jpg binary
+*.jpeg binary
+*.ico binary
+*.woff binary
+*.woff2 binary
+*.ttf binary
+*.eot binary
