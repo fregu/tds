@@ -1,3 +1,90 @@
+@keyframes rainbow {
+  0% {
+    color: violet;
+  }
+  12.5% {
+    color: indigo;
+  }
+  25% {
+    color: blue;
+  }
+  37.5% {
+    color: green;
+  }
+  50% {
+    color: yellow;
+  }
+  62.5% {
+    color: orange;
+  }
+  75% {
+    color: red;
+  }
+  87.5% {
+    color: pink;
+  }
+  100% {
+    color: violet;
+  }
+}
 .Logotype {
   font-size: 0.3em;
+  width: 110em;
+  margin: auto;
+  padding: var(--layout-gutter);
+}
+.Logotype pre {
+  animation: rainbow 1.8s ease-in-out infinite;
+}
+
+.Logotype pre:nth-child(1) {
+  animation-delay: calc(-0.1s);
+}
+.Logotype pre:nth-child(2) {
+  animation-delay: calc(-0.2s);
+}
+.Logotype pre:nth-child(3) {
+  animation-delay: calc(-0.3s);
+}
+.Logotype pre:nth-child(4) {
+  animation-delay: calc(-0.4s);
+}
+.Logotype pre:nth-child(5) {
+  animation-delay: calc(-0.5s);
+}
+.Logotype pre:nth-child(6) {
+  animation-delay: calc(-0.6s);
+}
+.Logotype pre:nth-child(7) {
+  animation-delay: calc(-0.7s);
+}
+.Logotype pre:nth-child(8) {
+  animation-delay: calc(-0.8s);
+}
+.Logotype pre:nth-child(9) {
+  animation-delay: calc(-0.9s);
+}
+.Logotype pre:nth-child(10) {
+  animation-delay: calc(-1s);
+}
+.Logotype pre:nth-child(11) {
+  animation-delay: calc(-1.1s);
+}
+.Logotype pre:nth-child(12) {
+  animation-delay: calc(-1.2s);
+}
+.Logotype pre:nth-child(13) {
+  animation-delay: calc(-1.3s);
+}
+.Logotype pre:nth-child(14) {
+  animation-delay: calc(-1.4s);
+}
+.Logotype pre:nth-child(15) {
+  animation-delay: calc(-1.5s);
+}
+.Logotype pre:nth-child(16) {
+  animation-delay: calc(-1.6s);
+}
+.Logotype pre:nth-child(17) {
+  animation-delay: calc(-1.7s);
 }

@@ -8,6 +8,7 @@ $ yarn add eslint eslint-config-prettier eslint-config-standard eslint-plugin-ba
     "start": "tds start",
     "build": "tds build",
     "eject": "tds eject",
+    "styleguide": "tds styleguide",
     "server": "node dist/run.js",
     "postinstall": "yarn build"
   }

@@ -9,13 +9,15 @@ import View from 'ui/components/View'
 
 export default function StartView() {
   return (
-    <View title="Hello World">
-      <Logotype />
-      <Title text="Start page" />
-      <Link to="/about">About</Link>
-      <Counter />
-      <Divider thin />
-      <Hello />
+    <View title="Hello World" theme="text-center">
+      <div className="layout-container layout-gutter">
+        <Logotype />
+        <Title text="Start page" />
+        <Link to="/about">About</Link>
+        <Counter />
+        <Divider thin />
+        <Hello />
+      </div>
     </View>
   )
 }
