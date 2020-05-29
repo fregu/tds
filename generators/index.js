@@ -71,7 +71,7 @@ function updatePackageJsonScripts(scripts = {}, rootPath) {
   })
 }
 
-module.exports = function({ path: rootPath }) {
+module.exports = async function({ path: rootPath }) {
   function execPromise(command) {
     return new Promise((resolve, reject) => {
       exec(`cd ${rootPath} && ${command}`, (error, stdout, stderr) => {
@@ -83,6 +83,10 @@ module.exports = function({ path: rootPath }) {
       })
     })
   }
+  const hasYarn = await execPromise('yrn -v')
+    .then(() => true)
+    .catch(() => false)
+
   return {
     init() {
       let promiseTree = new Promise(resolve => resolve())
@@ -96,7 +100,9 @@ module.exports = function({ path: rootPath }) {
           chalk.blue('[TDS]:'),
           chalk.green('Setting up a new project')
         )
-        promiseTree = promiseTree.then(() => execPromise('yarn init -y'))
+        promiseTree = promiseTree.then(() => {
+          execPromise(`${hasYarn ? 'yarn' : 'npm'} init -y`)
+        })
       }
 
       promiseTree
@@ -109,7 +115,7 @@ module.exports = function({ path: rootPath }) {
             {
               start: 'tds start',
               build: 'tds build',
-              // styleguide: 'tds styleguide',
+              styleguide: 'tds styleguide',
               eject: 'tds eject',
               serve: 'node dist/run.js',
               lint: 'eslint .'
@@ -136,43 +142,22 @@ module.exports = function({ path: rootPath }) {
             chalk.blue('[TDS]:'),
             chalk.green('Installing devDependencies')
           )
-          return execPromise('yarn add --dev ' + devDependencies.join(' '))
+          return execPromise(
+            (hasYarn ? 'yarn add --dev ' : 'npm install --save-dev ') +
+              devDependencies.join(' ')
+          )
         })
         .then(() => {
           console.log(
             chalk.blue('[TDS]:'),
             chalk.green('Installing dependencies')
           )
-          return execPromise('yarn add ' + dependencies.join(' '))
+          return execPromise(
+            (hasYarn ? 'yarn add ' : 'npm install ') + dependencies.join(' ')
+          )
         })
         .catch(error => {
           console.error('[TDS]:', error)
-        })
-    },
-    cms() {
-      new Promise(resolve => resolve())
-        .then(() => {
-          console.log(
-            chalk.blue('[TDS]:'),
-            chalk.green('Installing strapi@alpha')
-          )
-          execPromise('yarn add global strapi@alpha')
-        })
-        .then(() => {
-          console.log(
-            chalk.blue('[TDS]:'),
-            chalk.green('Updating package.json scripts')
-          )
-          return updatePackageJsonScripts({
-            cms: 'cd cms && strapi start'
-          })
-        })
-        .then(() => {
-          console.log(
-            chalk.blue('[TDS]:'),
-            chalk.green('Starting up Stapi cms')
-          )
-          return execPromise('strapi new cms --quickstart')
         })
     }
   }
