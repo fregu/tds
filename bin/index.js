@@ -8,16 +8,19 @@ const parser = require('../lib/parser/parse')
 const packageJSON = require('../package.json')
 const exec = require('child_process').exec
 
-if (process.argv.length > 2) {
-  const dir = process.cwd()
-  const config = parser(dir, true)
-  const command = process.argv[2]
-  // const specifier =
-  //   process.argv[3] && !process.argv[3].match(/^-/) && process.argv[3]
-  const flags = process.argv
-    .filter(arg => arg.match(/^-/))
-    .map(arg => arg.replace(/^--?/, ''))
+async function execPromise(command) {
+  return new Promise((resolve, reject) => {
+    exec(command, (error, stdout, stderr) => {
+      if (error) {
+        return reject(error)
+      }
 
+      resolve(stdout)
+    })
+  })
+}
+async function cli(dir, command, flags) {
+  const config = parser(dir, true)
   const mode =
     flags.includes('prod') ||
     flags.includes('production') ||
@@ -151,6 +154,17 @@ if (process.argv.length > 2) {
       )
       break
   }
+}
+
+if (process.argv.length > 2) {
+  const dir = process.cwd()
+  const command = process.argv[2]
+  // const specifier =
+  //   process.argv[3] && !process.argv[3].match(/^-/) && process.argv[3]
+  const flags = process.argv
+    .filter(arg => arg.match(/^-/))
+    .map(arg => arg.replace(/^--?/, ''))
+  cli(dir, command, flags)
 } else {
   console.log('available commands...')
 }
