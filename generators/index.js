@@ -34,7 +34,16 @@ const devDependencies = [
   '@babel/preset-env',
   'babel-loader',
   'babel-eslint',
-  'babel-plugin-module-resolver'
+  'babel-plugin-module-resolver',
+  'jest',
+  'ts-jest',
+  '@testing-library/react',
+  '@testing-library/jest-dom',
+  '@types/jest',
+  '@types/react',
+  '@types/react-dom',
+  '@types/testing-library__react',
+  '@types/testing-library__jest-dom'
 ]
 
 function updatePackageJsonScripts(scripts = {}, rootPath) {
@@ -71,7 +80,7 @@ function updatePackageJsonScripts(scripts = {}, rootPath) {
   })
 }
 
-module.exports = async function({ path: rootPath }) {
+module.exports = function({ path: rootPath }) {
   function execPromise(command) {
     return new Promise((resolve, reject) => {
       exec(`cd ${rootPath} && ${command}`, (error, stdout, stderr) => {
@@ -83,12 +92,11 @@ module.exports = async function({ path: rootPath }) {
       })
     })
   }
-  const hasYarn = await execPromise('yrn -v')
-    .then(() => true)
-    .catch(() => false)
-
   return {
-    init() {
+    init: async () => {
+      const hasYarn = await execPromise('yarn -v')
+        .then(() => true)
+        .catch(() => false)
       let promiseTree = new Promise(resolve => resolve())
 
       const rootFiles = fs
@@ -118,7 +126,9 @@ module.exports = async function({ path: rootPath }) {
               styleguide: 'tds styleguide',
               eject: 'tds eject',
               serve: 'node dist/run.js',
-              lint: 'eslint .'
+              lint: 'eslint .',
+              test: 'jest',
+              'check-types': 'tsc'
             },
             rootPath
           )

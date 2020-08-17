@@ -1,6 +1,6 @@
 {
   "name": "@jayway/tds",
-  "version": "0.0.85",
+  "version": "0.0.86",
   "license": "MIT",
   "bin": {
     "tds": "./bin/index.js"
@@ -36,6 +36,8 @@
     "@mdx-js/react": "^1.5.5",
     "@sentry/browser": "^5.15.4",
     "@sentry/node": "5.15.4",
+    "@types/react": "^16.9.38",
+    "@types/styled-jsx": "^2.2.8",
     "apollo-boost": "^0.4.7",
     "apollo-cache-inmemory": "^1.6.5",
     "apollo-client": "^2.6.8",
@@ -141,6 +143,8 @@
     "require-from-string": "^2.0.2",
     "responsive-loader": "^1.2.0",
     "shell-exec": "^1.0.2",
+    "styled-jsx": "^3.3.0",
+    "styled-jsx-plugin-postcss": "^2.0.1",
     "svg-inline-loader": "^0.8.0",
     "terser-webpack-plugin": "^2.3.4",
     "url": "^0.11.0",
