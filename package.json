@@ -112,7 +112,7 @@
     "loader-utils": "^1.2.3",
     "markdown-loader": "^5.0.0",
     "memory-fs": "^0.5.0",
-    "merge-graphql-schemas": "^1.7.6",
+    "merge-graphql-schemas": "^1.7.8",
     "mime-types": "^2.1.26",
     "mini-css-extract-plugin": "^0.9.0",
     "node-cron": "^2.0.3",
