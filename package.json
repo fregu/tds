@@ -1,9 +1,13 @@
 {
   "name": "@jayway/tds",
-  "version": "0.0.86",
+  "version": "0.0.87",
   "license": "MIT",
   "bin": {
     "tds": "./bin/index.js"
+  },
+  "repository": {
+    "type" : "git",
+    "url" : "https://github.com/fregu/tds"
   },
   "resolutions": {
     "graphql": "^14.5.8"
@@ -36,6 +40,8 @@
     "@mdx-js/react": "^1.5.5",
     "@sentry/browser": "^5.15.4",
     "@sentry/node": "5.15.4",
+    "@sentry/react": "^5.24.2",
+    "@sentry/tracing": "^5.24.2",
     "@types/react": "^16.9.38",
     "@types/styled-jsx": "^2.2.8",
     "apollo-boost": "^0.4.7",
